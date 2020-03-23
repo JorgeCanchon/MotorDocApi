@@ -1,4 +1,5 @@
-﻿using MotorDocApi.Core.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using MotorDocApi.Core.Entities;
 using MotorDocApi.Core.Interfaces.Repositories;
 using MotorDocApi.Infraestructure.EntityFrameworkPostgreSQL;
 using System;
@@ -7,12 +8,11 @@ using System.Text;
 
 namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL.Repositories
 {
-    public class UserRepository : RepositoryBase<User>, IUserRepository
+    public class AppointmentRepository : RepositoryBase<Appointment>, IAppointmentRepository
     {
-        public UserRepository(RepositoryContextPostgresql repositoryContext)
+        public AppointmentRepository(RepositoryContextPostgresql repositoryContext) 
             : base(repositoryContext)
         {
-
         }
     }
 }

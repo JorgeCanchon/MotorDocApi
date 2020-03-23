@@ -15,6 +15,7 @@ namespace MotorDocApi.Infraestructure.EntityFrameworkPostgreSQL
         }
         #region DbSets
         DbSet<User> users { get; set; }
+        DbSet<Appointment> appointments { get; set; }
         #endregion
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)

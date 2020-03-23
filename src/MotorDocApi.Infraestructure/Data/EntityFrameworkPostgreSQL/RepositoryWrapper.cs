@@ -9,8 +9,12 @@ namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL
 {
     public class RepositoryWrapper : IRepositoryWrapper
     {
-        public IUserRepository user;
+        private IUserRepository user;
+
+        private IAppointmentRepository appointment;
+
         private RepositoryContextPostgresql _repositoryContextPostgresql;
+
         public RepositoryWrapper(RepositoryContextPostgresql repositoryContextPostgresql)
         {
             _repositoryContextPostgresql = repositoryContextPostgresql;
@@ -21,6 +25,16 @@ namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL
                 if (user == null)
                     user = new UserRepository(_repositoryContextPostgresql);
                 return user;
+            }
+        }
+
+        public IAppointmentRepository Appointment 
+        {
+            get
+            {
+                if (appointment == null)
+                    appointment = new AppointmentRepository(_repositoryContextPostgresql);
+                return appointment;
             }
         }
         public void Save()
