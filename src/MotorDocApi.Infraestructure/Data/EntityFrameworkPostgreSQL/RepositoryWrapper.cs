@@ -19,6 +19,7 @@ namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL
         {
             _repositoryContextPostgresql = repositoryContextPostgresql;
         }
+
         public IUserRepository User
         {
             get {
@@ -36,6 +37,15 @@ namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL
                     appointment = new AppointmentRepository(_repositoryContextPostgresql);
                 return appointment;
             }
+        }
+
+        public void Commit()
+        {
+
+        }
+        public void RollBack()
+        {
+
         }
         public void Save()
         {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MotorDocApi.Core.Entities;
+using MotorDocApi.Core.Models;
 using MotorDocApi.Core.UseCases.Appointment;
 
 namespace MotorDocApi.Controllers
@@ -14,6 +14,7 @@ namespace MotorDocApi.Controllers
     [Route("api/[controller]")]
     public class AppointmentController : ControllerBase
     {
+
         private readonly IAppointmentInteractor _appointmentRepository;
 
         public AppointmentController(IAppointmentInteractor appointmentRepository)
@@ -43,9 +44,16 @@ namespace MotorDocApi.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult Post()
+        public IActionResult Post(Appointment appointment)
         {
-            return BadRequest();
+            if (!ModelState.IsValid)
+            { // re-render the view when validation failed.
+                return BadRequest(ModelState);
+            }
+            var result = _appointmentRepository.InsertAppointment(appointment);
+            if (result == null || result.Idappointment == 0)
+                return StatusCode(500);
+            return Ok(result);
         }
 
         [HttpGet("version")]

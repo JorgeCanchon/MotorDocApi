@@ -11,8 +11,9 @@ namespace MotorDocApi.Core.Interfaces.Repositories
     {
         IQueryable<T> FindAll();
         IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression);
-        void Create(T entity);
+        T Create(T entity);
         void Update(T entity);
         void Delete(T entity);
+        IQueryable<T> ExecuteSP(string sql);
     }
 }

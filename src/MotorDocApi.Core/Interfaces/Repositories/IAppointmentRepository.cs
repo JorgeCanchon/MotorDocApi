@@ -1,4 +1,4 @@
-﻿using MotorDocApi.Core.Entities;
+﻿using MotorDocApi.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;

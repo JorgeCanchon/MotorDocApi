@@ -8,6 +8,8 @@ namespace MotorDocApi.Core.Interfaces.Repositories
     {
         IUserRepository User { get; }
         IAppointmentRepository Appointment { get; }
+        void Commit();
+        void RollBack();
         void Save();
     }
 }

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using MotorDocApi.Core.Entities;
+using MotorDocApi.Core.Models;
 using System.Linq;
 
 namespace MotorDocApi.Core.UseCases.Appointment
@@ -15,8 +15,23 @@ namespace MotorDocApi.Core.UseCases.Appointment
             _repositoryWrapper = repositoryWrapper ?? throw new ArgumentNullException(nameof(repositoryWrapper));
         }
 
-        public IQueryable<Entities.Appointment> GetAppointment() =>
+        public IQueryable<Models.Appointment> GetAppointment() =>
             _repositoryWrapper.Appointment.FindAll();
 
+        public Models.Appointment InsertAppointment(Models.Appointment appointment)
+        {
+            Models.Appointment result = null;
+            try
+            {
+                result = _repositoryWrapper.Appointment.Create(appointment);
+                _repositoryWrapper.Save();
+            }
+            catch(Exception e)
+            {
+                var a = e;
+            }
+
+            return result;
+        }
     }
 }

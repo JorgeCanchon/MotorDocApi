@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MotorDocApi.Core.Entities;
+using MotorDocApi.Core.Models;
 using MotorDocApi.Core.Interfaces.Repositories;
 using MotorDocApi.Infraestructure.EntityFrameworkPostgreSQL;
 using System;
@@ -13,6 +13,7 @@ namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL.Repositorie
         public AppointmentRepository(RepositoryContextPostgresql repositoryContext) 
             : base(repositoryContext)
         {
+
         }
     }
 }

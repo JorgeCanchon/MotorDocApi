@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MotorDocApi.Core.Entities;
+using MotorDocApi.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,19 +8,53 @@ namespace MotorDocApi.Infraestructure.EntityFrameworkPostgreSQL
 {
     public class RepositoryContextPostgresql : DbContext
     {
+        public RepositoryContextPostgresql()
+        {
+
+        }
         public RepositoryContextPostgresql(DbContextOptions options)
             : base(options) 
         {
         
         }
-        #region DbSets
-        DbSet<User> users { get; set; }
-        DbSet<Appointment> appointments { get; set; }
-        #endregion
+        public virtual DbSet<Appointment> Appointment { get; set; }
+        public virtual DbSet<Brands> Brands { get; set; }
+        public virtual DbSet<Companies> Companies { get; set; }
+        public virtual DbSet<Maintenance> Maintenance { get; set; }
+        public virtual DbSet<Maintenancerating> Maintenancerating { get; set; }
+        public virtual DbSet<Maintenanceroutine> Maintenanceroutine { get; set; }
+        public virtual DbSet<Mechanics> Mechanics { get; set; }
+        public virtual DbSet<Routine> Routine { get; set; }
+        public virtual DbSet<Routinemechanic> Routinemechanic { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Vehicles> Vehicles { get; set; }
+        public virtual DbSet<Workshops> Workshops { get; set; }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
-        //{
-        //    optionBuilder.UseNpgsql("Host=ec2-52-73-247-67.compute-1.amazonaws.com;Database=d8e81j1jlb7c16;Username=hyrjphcachsrpy;Password=1ef60c7ca1d1737639e27fcfd40b3b7cb65669499cdc7baefa85e76274c92043;sslmode=Require;Trust Server Certificate=true;");
-        //}
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            if(modelBuilder != null)
+            {
+                modelBuilder.Entity<Appointment>(entity => {
+                    entity.Property(b => b.Fhcreated)
+                    .HasDefaultValueSql("now()");
+                    entity.Property(b => b.Status)
+                    .HasDefaultValueSql("1");
+                });
+                modelBuilder.Entity<Maintenanceroutine>(entity =>
+                {
+                    entity.HasNoKey();
+                });
+                modelBuilder.Entity<Routinemechanic>(entity =>
+                {
+                    entity.HasNoKey();
+                });
+                modelBuilder.HasAnnotation("Sqlite:Autoincrement", true)
+                   .HasAnnotation("MySql:ValueGeneratedOnAdd", true)
+                   .HasAnnotation("Npgsql:ValueGenerationStrategy",
+                    Npgsql.EntityFrameworkCore.PostgreSQL.Metadata.NpgsqlValueGenerationStrategy.IdentityAlwaysColumn)
+                   .HasAnnotation("SqlServer:ValueGenerationStrategy", Microsoft.EntityFrameworkCore.Metadata.SqlServerValueGenerationStrategy.IdentityColumn);
+                }
+        }
     }
 }

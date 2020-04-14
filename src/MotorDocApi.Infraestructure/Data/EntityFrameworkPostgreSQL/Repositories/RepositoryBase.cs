@@ -15,8 +15,8 @@ namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL.Repositorie
         {
             Context = context;
         }
-        public void Create(T entity) =>
-            Context.Set<T>().Add(entity);
+        public T Create(T entity) =>
+            Context.Set<T>().Add(entity).Entity;
 
         public void Delete(T entity) =>
             Context.Set<T>().Remove(entity);
@@ -28,5 +28,8 @@ namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL.Repositorie
             Context.Set<T>().Where(expression).AsNoTracking();
         public void Update(T entity) =>
             Context.Set<T>().Update(entity);
+
+        public IQueryable<T> ExecuteSP(string sql) =>
+            Context.Set<T>().FromSqlRaw<T>(sql);
     }
 }
