@@ -13,6 +13,8 @@ namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL
 
         private IAppointmentRepository appointment;
 
+        private IRoutineRepository routine;
+
         private RepositoryContextPostgresql _repositoryContextPostgresql;
 
         public RepositoryWrapper(RepositoryContextPostgresql repositoryContextPostgresql)
@@ -39,6 +41,15 @@ namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL
             }
         }
 
+        public IRoutineRepository Routine 
+        {
+            get 
+            {
+                if (routine == null)
+                    routine = new RoutineRepository(_repositoryContextPostgresql);
+                return routine;
+            }
+        }
         public void Commit()
         {
 

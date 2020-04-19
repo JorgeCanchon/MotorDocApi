@@ -24,16 +24,13 @@ namespace MotorDocApi.Controllers
         //[Consumes(MediaTypeNames.Application.Json)]
         [Authorize]
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public IActionResult Get() 
         {
             try
             {
                 IEnumerable<Appointment> appointments = _appointmentRepository.GetAppointment();
                 if (appointments.Any())
-                    return Ok(_appointmentRepository.GetAppointment());
+                    return Ok(appointments);
                 return NoContent();
             }
             catch (Exception)

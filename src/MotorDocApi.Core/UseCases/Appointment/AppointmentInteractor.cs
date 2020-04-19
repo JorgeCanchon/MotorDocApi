@@ -26,11 +26,7 @@ namespace MotorDocApi.Core.UseCases.Appointment
                 result = _repositoryWrapper.Appointment.Create(appointment);
                 _repositoryWrapper.Save();
             }
-            catch(Exception e)
-            {
-                var a = e;
-            }
-
+            catch { }
             return result;
         }
     }

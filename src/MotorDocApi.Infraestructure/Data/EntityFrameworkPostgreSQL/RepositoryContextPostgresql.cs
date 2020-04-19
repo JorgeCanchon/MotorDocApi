@@ -49,6 +49,13 @@ namespace MotorDocApi.Infraestructure.EntityFrameworkPostgreSQL
                 {
                     entity.HasNoKey();
                 });
+                modelBuilder.Entity<Routine>(entity => 
+                {
+                    entity.Property(b => b.Fhcreated)
+                    .HasDefaultValueSql("now");
+                    entity.Property(b => b.Status)
+                    .HasDefaultValueSql("1");
+                });
                 modelBuilder.HasAnnotation("Sqlite:Autoincrement", true)
                    .HasAnnotation("MySql:ValueGeneratedOnAdd", true)
                    .HasAnnotation("Npgsql:ValueGenerationStrategy",
