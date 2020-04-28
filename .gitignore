@@ -333,3 +333,8 @@ ASALocalRun/
 # Local History for Visual Studio
 .localhistory/
 /clientesaz/My Project/PublishProfiles
+
+src/MotorDocApi/appsettings.json
+appsettings.json
+src/MotorDocApi/appsettings.Development.json
+appsettings.Development.json
