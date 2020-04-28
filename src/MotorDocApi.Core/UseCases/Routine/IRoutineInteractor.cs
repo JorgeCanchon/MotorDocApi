@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Text;
 using MotorDocApi.Core.Models;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace MotorDocApi.Core.UseCases.Routine
 {
     public interface IRoutineInteractor
     {
         IQueryable<Models.Routine> GetRoutine();
-        Models.Routine InsertRoutine(Models.Routine routine);
+        long InsertRoutine(Models.Routine routine);
+        EntityState UpdateRoutine(Models.Routine routine);
+        IQueryable<Models.Routine> GetRoutinesByWorkshop(long WorkshopId);
+        EntityState DeleteRoutine(long idRoutine);
     }
 }

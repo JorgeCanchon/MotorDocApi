@@ -48,7 +48,7 @@ namespace MotorDocApi.Controllers
                 return BadRequest(ModelState);
             }
             var result = _appointmentRepository.InsertAppointment(appointment);
-            if (result == null || result.Idappointment == 0)
+            if (result == -1 || result == 0)
                 return StatusCode(500);
             return Ok(result);
         }

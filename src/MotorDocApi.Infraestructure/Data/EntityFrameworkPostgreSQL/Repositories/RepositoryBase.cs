@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using MotorDocApi.Core.Interfaces.Repositories;
+using System.Security.Cryptography.X509Certificates;
 
 namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL.Repositories
 {
@@ -18,16 +19,20 @@ namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL.Repositorie
         public T Create(T entity) =>
             Context.Set<T>().Add(entity).Entity;
 
-        public void Delete(T entity) =>
-            Context.Set<T>().Remove(entity);
+        public EntityState Delete(T entity) =>
+            Context.Set<T>().Remove(entity).State;
 
         public IQueryable<T> FindAll() =>
             Context.Set<T>().AsNoTracking();
 
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression) =>
             Context.Set<T>().Where(expression).AsNoTracking();
-        public void Update(T entity) =>
-            Context.Set<T>().Update(entity);
+
+        public EntityState Update(T entity, string propertyName)
+        {
+            Context.Entry<T>(entity).Property(propertyName).IsModified = false;
+            return Context.Set<T>().Update(entity).State;
+        }
 
         public IQueryable<T> ExecuteSP(string sql) =>
             Context.Set<T>().FromSqlRaw<T>(sql);

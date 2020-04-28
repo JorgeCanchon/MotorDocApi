@@ -55,6 +55,7 @@ namespace MotorDocApi.Infraestructure.EntityFrameworkPostgreSQL
                     .HasDefaultValueSql("now");
                     entity.Property(b => b.Status)
                     .HasDefaultValueSql("1");
+                    entity.Property(b => b.Idroutine).UseIdentityColumn();
                 });
                 modelBuilder.HasAnnotation("Sqlite:Autoincrement", true)
                    .HasAnnotation("MySql:ValueGeneratedOnAdd", true)

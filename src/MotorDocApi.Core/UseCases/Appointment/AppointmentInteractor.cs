@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using MotorDocApi.Core.Models;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace MotorDocApi.Core.UseCases.Appointment
 {
@@ -18,15 +19,19 @@ namespace MotorDocApi.Core.UseCases.Appointment
         public IQueryable<Models.Appointment> GetAppointment() =>
             _repositoryWrapper.Appointment.FindAll();
 
-        public Models.Appointment InsertAppointment(Models.Appointment appointment)
+        public long InsertAppointment(Models.Appointment appointment)
         {
-            Models.Appointment result = null;
+            long result = -1;
             try
             {
-                result = _repositoryWrapper.Appointment.Create(appointment);
+                _repositoryWrapper.Appointment.Create(appointment);
                 _repositoryWrapper.Save();
+                result = appointment.Idappointment;
             }
-            catch { }
+            catch(Exception)
+            {
+            
+            }
             return result;
         }
     }

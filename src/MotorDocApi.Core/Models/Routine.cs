@@ -20,5 +20,7 @@ namespace MotorDocApi.Core.Models
         public bool Status { get; set; }
         [Column("fhcreated")]
         public DateTime Fhcreated { get; set; }
+        [Column("workshopsid")]
+        public long WorkshopsId { get; set; }
     }
 }
