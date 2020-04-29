@@ -30,7 +30,6 @@ namespace MotorDocApi
             new CultureInfo("en-US"),
             //new CultureInfo("es-ES"),
         };
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -41,10 +40,8 @@ namespace MotorDocApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-
             services.AddCors();
-
+            services.AddControllers();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
@@ -84,8 +81,14 @@ namespace MotorDocApi
             {
                 app.UseDeveloperExceptionPage();
             }
-            //app.UseMiddleware<AuthorizationMiddleware>();
 
+            app.UseCors(x =>
+            {
+                x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            });
             app.UseAuthentication();
 
             app.UseHttpsRedirection();

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MotorDocApi.Core.Models;
@@ -59,7 +58,7 @@ namespace MotorDocApi.Controllers
         [HttpPost]
         public IActionResult Post(Routine routine)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || routine.WorkshopsId == 0)
             {
                 return BadRequest(ModelState);
             }
