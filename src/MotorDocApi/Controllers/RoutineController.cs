@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MotorDocApi.Core.Models;
 using MotorDocApi.Core.UseCases.Routine;
+using Newtonsoft.Json;
 
 namespace MotorDocApi.Controllers
 {
@@ -38,19 +40,19 @@ namespace MotorDocApi.Controllers
         }
 
         [Authorize]
-        [HttpGet("byWorkshop")]
-        public IActionResult GetWorkshop(long workshopId)
+        [HttpGet("byWorkshop/{workshopId}/{idReferenceBrand}")]
+        public IActionResult GetWorkshop(long workshopId, long idReferenceBrand)
         {
             try
             {
-                IEnumerable<Routine> routines = _routineInteractor.GetRoutinesByWorkshop(workshopId);
+                IEnumerable<Routine> routines = _routineInteractor.GetRoutinesByWorkshop(workshopId, idReferenceBrand);
                 if (routines.Any())
                     return Ok(routines);
                 return NoContent();
             }
             catch (Exception e)
             {
-                return Problem(e.InnerException.ToString());
+                return Problem(e.Message);
             }
         }
 

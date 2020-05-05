@@ -12,7 +12,7 @@ namespace MotorDocApi.Core.UseCases.Routine
         IQueryable<Models.Routine> GetRoutine();
         long InsertRoutine(Models.Routine routine);
         EntityState UpdateRoutine(Models.Routine routine);
-        IQueryable<Models.Routine> GetRoutinesByWorkshop(long WorkshopId);
+        IQueryable<Models.Routine> GetRoutinesByWorkshop(long workshopId, long idReferenceBrand);
         EntityState DeleteRoutine(long idRoutine);
     }
 }

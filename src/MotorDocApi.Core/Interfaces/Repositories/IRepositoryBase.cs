@@ -15,6 +15,7 @@ namespace MotorDocApi.Core.Interfaces.Repositories
         T Create(T entity);
         EntityState Update(T entity, string propertyName);
         EntityState Delete(T entity);
-        IQueryable<T> ExecuteSP(string sql);
+        IQueryable<T> ExecuteSP(string sql, params object[] parameters); 
+        DbContext Query();
     }
 }

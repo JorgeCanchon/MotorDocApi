@@ -1,9 +1,9 @@
-﻿using MotorDocApi.Core.Interfaces.Repositories;
+﻿using System;
+using MotorDocApi.Core.Interfaces.Repositories;
 using MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL.Repositories;
 using MotorDocApi.Infraestructure.EntityFrameworkPostgreSQL;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
+
 
 namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL
 {
@@ -15,11 +15,15 @@ namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL
 
         private IRoutineRepository routine;
 
+        private IReferenceBrandRepository referenceBrand;
+
+        private IBrandRepository brand;
+
         private RepositoryContextPostgresql _repositoryContextPostgresql;
 
         public RepositoryWrapper(RepositoryContextPostgresql repositoryContextPostgresql)
         {
-            _repositoryContextPostgresql = repositoryContextPostgresql;
+            _repositoryContextPostgresql = repositoryContextPostgresql ?? throw new ArgumentNullException(nameof(repositoryContextPostgresql));
         }
 
         public IUserRepository User
@@ -50,6 +54,27 @@ namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL
                 return routine;
             }
         }
+
+        public IReferenceBrandRepository ReferenceBrand
+        {
+            get
+            {
+                if (referenceBrand == null)
+                    referenceBrand = new ReferenceBrandRepository(_repositoryContextPostgresql);
+                return referenceBrand;
+            }
+        }
+
+        public IBrandRepository BrandRepository
+        {
+            get
+            {
+                if (brand == null)
+                    brand = new BrandRepository(_repositoryContextPostgresql);
+                return brand;
+            }
+        }
+
         public void Commit()
         {
 

@@ -14,7 +14,7 @@ namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL.Repositorie
         protected DbContext Context { get; set; }
         public RepositoryBase(DbContext context)
         {
-            Context = context;
+            Context = context ?? throw new ArgumentNullException(nameof(context));
         }
         public T Create(T entity) =>
             Context.Set<T>().Add(entity).Entity;
@@ -34,7 +34,10 @@ namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL.Repositorie
             return Context.Set<T>().Update(entity).State;
         }
 
-        public IQueryable<T> ExecuteSP(string sql) =>
-            Context.Set<T>().FromSqlRaw<T>(sql);
+        public IQueryable<T> ExecuteSP(string sql, params object[] parameters) =>
+            Context.Set<T>().FromSqlRaw<T>(sql, parameters);
+
+        public DbContext Query() => 
+            Context;
     }
 }

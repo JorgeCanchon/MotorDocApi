@@ -24,11 +24,13 @@ namespace MotorDocApi.Infraestructure.EntityFrameworkPostgreSQL
         public virtual DbSet<Maintenancerating> Maintenancerating { get; set; }
         public virtual DbSet<Maintenanceroutine> Maintenanceroutine { get; set; }
         public virtual DbSet<Mechanics> Mechanics { get; set; }
-        public virtual DbSet<Routine> Routine { get; set; }
+        public virtual DbSet<Routine> Routines { get; set; }
         public virtual DbSet<Routinemechanic> Routinemechanic { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<Vehicles> Vehicles { get; set; }
         public virtual DbSet<Workshops> Workshops { get; set; }
+        public virtual DbSet<ReferenceBrand> ReferenceBrands { get; set; }
+        public virtual DbSet<RoutineBrand> RoutineBrands { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -49,13 +51,29 @@ namespace MotorDocApi.Infraestructure.EntityFrameworkPostgreSQL
                 {
                     entity.HasNoKey();
                 });
+                modelBuilder.Entity<RoutineBrand>()
+                    .HasKey(sc => new { sc.IdRoutine, sc.IdReferenceBrand });
+                modelBuilder.Entity<RoutineBrand>()
+                    .HasOne<ReferenceBrand>(sc => sc.ReferenceBrand)
+                    .WithMany(s => s.RoutineBrand)
+                    .HasForeignKey(sc => sc.IdReferenceBrand);
+
+                modelBuilder.Entity<RoutineBrand>()
+                    .HasOne<Routine>(sc => sc.Routine)
+                    .WithMany(s => s.RoutineBrand)
+                    .HasForeignKey(sc => sc.IdRoutine);
+                //modelBuilder.Entity<RoutineBrand>(entity =>
+                //{
+                //    entity.HasNoKey();
+                //});
+
                 modelBuilder.Entity<Routine>(entity => 
                 {
                     entity.Property(b => b.Fhcreated)
                     .HasDefaultValueSql("now");
                     entity.Property(b => b.Status)
                     .HasDefaultValueSql("1");
-                    entity.Property(b => b.Idroutine).UseIdentityColumn();
+                    entity.Property(b => b.IdRoutine).UseIdentityColumn();
                 });
                 modelBuilder.HasAnnotation("Sqlite:Autoincrement", true)
                    .HasAnnotation("MySql:ValueGeneratedOnAdd", true)

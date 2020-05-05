@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MotorDocApi.Core.Models
 {
+    [Table("brands")]
     public partial class Brands
     {
-        public Brands()
-        {
-            Vehicles = new HashSet<Vehicles>();
-        }
         [Key]
+        [Column("id")]
         public long Id { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
+        [Column("name")]
         public string Name { get; set; }
-
-        public virtual ICollection<Vehicles> Vehicles { get; set; }
+        //public virtual ReferenceBrand ReferenceBrands { get; set; }
     }
 }
