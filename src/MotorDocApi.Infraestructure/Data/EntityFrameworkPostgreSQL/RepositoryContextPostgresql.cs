@@ -42,17 +42,20 @@ namespace MotorDocApi.Infraestructure.EntityFrameworkPostgreSQL
                     .HasDefaultValueSql("now()");
                     entity.Property(b => b.Status)
                     .HasDefaultValueSql("1");
+
+                    entity.HasOne<Maintenance>(m => m.Maintenance)
+                    .WithOne(a => a.Appointments)
+                    .HasForeignKey<Maintenance>(a => a.IdAppointment);
+
                 });
-                modelBuilder.Entity<Maintenanceroutine>(entity =>
-                {
-                    entity.HasNoKey();
-                });
+
                 modelBuilder.Entity<Routinemechanic>(entity =>
                 {
                     entity.HasNoKey();
                 });
                 modelBuilder.Entity<RoutineBrand>()
                     .HasKey(sc => new { sc.IdRoutine, sc.IdReferenceBrand });
+
                 modelBuilder.Entity<RoutineBrand>()
                     .HasOne<ReferenceBrand>(sc => sc.ReferenceBrand)
                     .WithMany(s => s.RoutineBrand)
@@ -62,7 +65,30 @@ namespace MotorDocApi.Infraestructure.EntityFrameworkPostgreSQL
                     .HasOne<Routine>(sc => sc.Routine)
                     .WithMany(s => s.RoutineBrand)
                     .HasForeignKey(sc => sc.IdRoutine);
+
+                modelBuilder.Entity<Maintenanceroutine>()
+                    .HasKey(sc => new { sc.IdMechanic, sc.IdMaintenance });
+
+                modelBuilder.Entity<Maintenanceroutine>()
+                    .HasOne<Maintenance>(m => m.Maintenances)
+                    .WithMany(s => s.Maintenanceroutines)
+                    .HasForeignKey(m => m.IdMaintenance);
+
+                modelBuilder.Entity<Maintenanceroutine>()
+                   .HasOne<Mechanics>(m => m.Mechanics)
+                   .WithMany(s => s.Maintenanceroutines)
+                   .HasForeignKey(m => m.IdMechanic);
+
+                modelBuilder.Entity<Vehicles>()
+                    .HasOne<Maintenance>(v => v.Maintenances)
+                    .WithMany(m => m.Vehicles)
+                    .HasForeignKey(v => v.Id);
                 //modelBuilder.Entity<RoutineBrand>(entity =>
+                //{
+                //    entity.HasNoKey();
+                //})
+
+                //modelBuilder.Entity<Maintenanceroutine>(entity =>
                 //{
                 //    entity.HasNoKey();
                 //});

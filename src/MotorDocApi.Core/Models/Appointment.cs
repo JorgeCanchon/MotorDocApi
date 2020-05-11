@@ -9,10 +9,6 @@ namespace MotorDocApi.Core.Models
     [Table("appointment")]
     public partial class Appointment
     {
-        public Appointment()
-        {
-            Maintenance = new HashSet<Maintenance>();
-        }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("idappointment")]
@@ -28,6 +24,6 @@ namespace MotorDocApi.Core.Models
         public DateTime Fhcreated { get; set; }
         [Column("workshopsid")]
         public long WorkshopsId { get; set; }
-        public virtual ICollection<Maintenance> Maintenance { get; set; }
+        public virtual Maintenance Maintenance { get; set; }
     }
 }

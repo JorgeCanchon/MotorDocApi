@@ -7,7 +7,7 @@ namespace MotorDocApi.Core.Models
     {
         public long Codroutine { get; set; }
         public long Codmechanic { get; set; }
-        public DateTime Estimatedtime { get; set; }
+        //public DateTime Estimatedtime { get; set; }
 
         public virtual Mechanics CodmechanicNavigation { get; set; }
         public virtual Routine CodroutineNavigation { get; set; }

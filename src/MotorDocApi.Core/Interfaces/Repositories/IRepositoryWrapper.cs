@@ -10,7 +10,8 @@ namespace MotorDocApi.Core.Interfaces.Repositories
         IAppointmentRepository Appointment { get; }
         IRoutineRepository Routine { get; }
         IReferenceBrandRepository ReferenceBrand { get; }
-        IBrandRepository BrandRepository { get; }
+        IBrandRepository Brands { get; }
+        IMechanicRepository Mechanics {get;}
         void Commit();
         void RollBack();
         void Save();

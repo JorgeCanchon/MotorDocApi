@@ -1,8 +1,8 @@
 ﻿using System;
 using MotorDocApi.Core.Interfaces.Repositories;
+using MotorDocApi.Core.UseCases.Mechanic;
 using MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL.Repositories;
 using MotorDocApi.Infraestructure.EntityFrameworkPostgreSQL;
-
 
 
 namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL
@@ -18,6 +18,8 @@ namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL
         private IReferenceBrandRepository referenceBrand;
 
         private IBrandRepository brand;
+
+        private IMechanicRepository mechanic;
 
         private RepositoryContextPostgresql _repositoryContextPostgresql;
 
@@ -65,13 +67,23 @@ namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL
             }
         }
 
-        public IBrandRepository BrandRepository
+        public IBrandRepository Brands
         {
             get
             {
                 if (brand == null)
                     brand = new BrandRepository(_repositoryContextPostgresql);
                 return brand;
+            }
+        }
+
+        public IMechanicRepository Mechanics
+        {
+            get
+            {
+                if (mechanic == null)
+                    mechanic = new MechanicRepository(_repositoryContextPostgresql);
+                return mechanic;
             }
         }
 

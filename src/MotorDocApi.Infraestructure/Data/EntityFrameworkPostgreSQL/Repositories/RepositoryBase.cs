@@ -34,8 +34,8 @@ namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL.Repositorie
             return Context.Set<T>().Update(entity).State;
         }
 
-        public IQueryable<T> ExecuteSP(string sql, params object[] parameters) =>
-            Context.Set<T>().FromSqlRaw<T>(sql, parameters);
+        public IQueryable<T> ExecuteQuery(string sql) =>
+            Context.Set<T>().FromSqlRaw<T>(sql);
 
         public DbContext Query() => 
             Context;

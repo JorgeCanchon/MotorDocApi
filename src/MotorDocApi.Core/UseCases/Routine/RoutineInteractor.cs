@@ -20,14 +20,14 @@ namespace MotorDocApi.Core.UseCases.Routine
         public IQueryable<Models.Routine> GetRoutine() =>
             _repositoryWrapper.Routine.FindAll().Where(x => x.Status == true);
 
-        public IQueryable<Models.Routine> GetRoutinesByWorkshop(long WorkshopId, long idReferenceBrand) =>
+        public IQueryable<Models.Routine> GetRoutinesByWorkshop(long workshopId, long idReferenceBrand) =>
             _repositoryWrapper
                 .Routine
                 .Query()
                 .Set<Models.Routine>()
                 .Include(x => x.RoutineBrand)
                 .Where(x =>
-                    x.WorkshopsId == WorkshopId &&
+                    x.WorkshopsId == workshopId &&
                     x.Status == true &&
                     x.RoutineBrand.Any(c => c.IdReferenceBrand == idReferenceBrand)
                 );

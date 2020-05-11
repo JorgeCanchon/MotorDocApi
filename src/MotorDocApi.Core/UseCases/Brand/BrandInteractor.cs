@@ -16,7 +16,7 @@ namespace MotorDocApi.Core.UseCases.Brand
         }
         public IQueryable<Brands> GetBrands() =>
         (
-            _repositoryWrapper.BrandRepository.FindAll()
+            _repositoryWrapper.Brands.FindAll()
         );
     }
 }
