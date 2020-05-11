@@ -15,7 +15,9 @@ namespace MotorDocApi.Infraestructure.Extensions
         public static void ConfigureMyPostgreSQLContext(this IServiceCollection services, IConfiguration config)
         {
             services.AddDbContext<RepositoryContextPostgresql>(
-                   options => options.UseNpgsql(config.GetConnectionString("PostgreSqlDBContext"))
+                   options => options.UseNpgsql(config.GetConnectionString("PostgreSqlDBContext"), npgsqlOptions => {
+                       npgsqlOptions.CommandTimeout(60);
+                   })
                );
         }
 

@@ -18,11 +18,18 @@ using MotorDocApi.Attributes;
 using MotorDocApi.Core;
 using MotorDocApi.Infraestructure;
 using MotorDocApi.Infraestructure.Extensions;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace MotorDocApi
 {
     public class Startup
     {
+        IList<CultureInfo> supportedCultures = new List<CultureInfo>
+        {
+            new CultureInfo("en-US"),
+            //new CultureInfo("es-ES"),
+        };
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -33,10 +40,12 @@ namespace MotorDocApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-
             services.AddCors();
-
+            services.AddControllers();
+            services.AddControllers()
+                    .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
@@ -54,7 +63,9 @@ namespace MotorDocApi
             services.ConfigureMyPostgreSQLContext(Configuration);
 
             services.AddMvc();
-            
+
+            CultureInfo.CurrentCulture = new CultureInfo("es-ES");
+
             ContainerBuilder builder = new ContainerBuilder();
 
             builder.RegisterModule(new CoreModule());
@@ -74,8 +85,14 @@ namespace MotorDocApi
             {
                 app.UseDeveloperExceptionPage();
             }
-            //app.UseMiddleware<AuthorizationMiddleware>();
 
+            app.UseCors(x =>
+            {
+                x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            });
             app.UseAuthentication();
 
             app.UseHttpsRedirection();
@@ -87,6 +104,13 @@ namespace MotorDocApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("es-ES"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
             });
         }
     }

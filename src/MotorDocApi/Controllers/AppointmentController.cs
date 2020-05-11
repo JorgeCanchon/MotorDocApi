@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MotorDocApi.Core.Models;
+using MotorDocApi.Core.UseCases.Appointment;
 
 namespace MotorDocApi.Controllers
 {
@@ -12,13 +14,49 @@ namespace MotorDocApi.Controllers
     [Route("api/[controller]")]
     public class AppointmentController : ControllerBase
     {
-        public AppointmentController()
-        {
 
+        private readonly IAppointmentInteractor _appointmentRepository;
+
+        public AppointmentController(IAppointmentInteractor appointmentRepository)
+        {
+            _appointmentRepository = appointmentRepository;
+        }
+        //[Consumes(MediaTypeNames.Application.Json)]
+        [Authorize]
+        [HttpGet]
+        public IActionResult Get() 
+        {
+            try
+            {
+                IEnumerable<Appointment> appointments = _appointmentRepository.GetAppointment();
+                if (appointments.Any())
+                    return Ok(appointments);
+                return NoContent();
+            }
+            catch (Exception)
+            {
+                return Problem();
+            }
         }
 
         [Authorize]
-        public IEnumerable<int> Get() => 
-            new List<int> { 1, 2, 3 };
+        [HttpPost]
+        public IActionResult Post(Appointment appointment)
+        {
+            if (!ModelState.IsValid)
+            { // re-render the view when validation failed.
+                return BadRequest(ModelState);
+            }
+            var result = _appointmentRepository.InsertAppointment(appointment);
+            if (result == -1 || result == 0)
+                return StatusCode(500);
+            return Ok(result);
+        }
+
+        [HttpGet("version")]
+        public string Version()
+        {
+            return "Version 1.0.0";
+        }
     }
 }

@@ -7,7 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotorDocApi", "MotorDocApi.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotorDocApi.Infraestructure", "..\MotorDocApi.Infraestructure\MotorDocApi.Infraestructure.csproj", "{7D00D0DA-C8BC-4B92-B060-57F15847E06D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotorDocApi.Core", "..\MotorDocApi.Core\MotorDocApi.Core.csproj", "{629F6907-C5F7-4E21-92D8-AED5ECB16647}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotorDocApi.Core", "..\MotorDocApi.Core\MotorDocApi.Core.csproj", "{629F6907-C5F7-4E21-92D8-AED5ECB16647}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{78755D53-FF59-4F86-85D8-563858348525}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotorDoc.Api.Core.UniTests", "..\MotorDoc.Api.Core.UniTests\MotorDoc.Api.Core.UniTests.csproj", "{584C7D41-9F2A-4EEE-803F-FC772498128C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotorDocApi.UniTests", "..\MotorDocApi.UniTests\MotorDocApi.UniTests.csproj", "{D23C1DBD-D02D-4CBA-8331-BFC049A1B289}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,9 +33,21 @@ Global
 		{629F6907-C5F7-4E21-92D8-AED5ECB16647}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{629F6907-C5F7-4E21-92D8-AED5ECB16647}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{629F6907-C5F7-4E21-92D8-AED5ECB16647}.Release|Any CPU.Build.0 = Release|Any CPU
+		{584C7D41-9F2A-4EEE-803F-FC772498128C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{584C7D41-9F2A-4EEE-803F-FC772498128C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{584C7D41-9F2A-4EEE-803F-FC772498128C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{584C7D41-9F2A-4EEE-803F-FC772498128C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D23C1DBD-D02D-4CBA-8331-BFC049A1B289}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D23C1DBD-D02D-4CBA-8331-BFC049A1B289}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D23C1DBD-D02D-4CBA-8331-BFC049A1B289}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D23C1DBD-D02D-4CBA-8331-BFC049A1B289}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{584C7D41-9F2A-4EEE-803F-FC772498128C} = {78755D53-FF59-4F86-85D8-563858348525}
+		{D23C1DBD-D02D-4CBA-8331-BFC049A1B289} = {78755D53-FF59-4F86-85D8-563858348525}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CE2B6AC7-8502-4275-8D0E-1144A4CF28EE}

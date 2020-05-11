@@ -29,7 +29,7 @@ namespace MotorDocApi.Attributes
                 if(!isValid)
                     Unauthorized(context);
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 Unauthorized(context); 
                 return;
