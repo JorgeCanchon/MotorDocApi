@@ -334,7 +334,7 @@ ASALocalRun/
 .localhistory/
 /clientesaz/My Project/PublishProfiles
 
-src/MotorDocApi/appsettings.json
-appsettings.json
-src/MotorDocApi/appsettings.Development.json
-appsettings.Development.json
+--src/MotorDocApi/appsettings.json
+--appsettings.json
+--src/MotorDocApi/appsettings.Development.json
+--appsettings.Development.json
