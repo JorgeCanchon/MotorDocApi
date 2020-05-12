@@ -84,14 +84,14 @@ namespace MotorDocApi.Controllers
             return Ok();
         }
         [Authorize]
-        [HttpDelete]
-        public IActionResult Delete(long idRoutine)
+        [HttpDelete("{idroutine}")]
+        public IActionResult Delete(long idroutine)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var result = _routineInteractor.DeleteRoutine(idRoutine);
+            var result = _routineInteractor.DeleteRoutine(idroutine);
             if (result != EntityState.Modified)
                 return StatusCode(500);
             return Ok();
