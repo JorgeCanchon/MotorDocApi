@@ -77,12 +77,12 @@ namespace MotorDocApi.Core.UseCases.Routine
             }
             return result;
         }
-        public EntityState DeleteRoutine(long idRoutine)
+        public EntityState DeleteRoutine(long idroutine)
         {
             EntityState result = new EntityState();
             try
             {
-                var entity = _repositoryWrapper.Routine.FindByCondition(x => x.IdRoutine == idRoutine).FirstOrDefault();
+                var entity = _repositoryWrapper.Routine.FindByCondition(x => x.IdRoutine == idroutine).FirstOrDefault();
                 entity.Status = false;
                 result = _repositoryWrapper.Routine.Update(entity, "IdRoutine");
                 _repositoryWrapper.Save();
