@@ -40,8 +40,8 @@ namespace MotorDocApi.Controllers
         }
 
         [Authorize]
-        [HttpGet("byWorkshop/{workshopId}/{idReferenceBrand}")]
-        public IActionResult GetWorkshop(long workshopId, long idReferenceBrand)
+        [HttpGet("{workshopId}/{idReferenceBrand}")]
+        public IActionResult GetRoutinesWorkshopVehicle(long workshopId, long idReferenceBrand)
         {
             try
             {

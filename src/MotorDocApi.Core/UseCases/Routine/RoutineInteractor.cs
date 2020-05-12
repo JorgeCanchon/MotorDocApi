@@ -53,7 +53,6 @@ namespace MotorDocApi.Core.UseCases.Routine
             EntityState result = new EntityState();
             try
             {
-                //var entity = _repositoryWrapper.Routine.FindByCondition(x => x.IdRoutine == routine.IdRoutine).FirstOrDefault();
                 var entity = _repositoryWrapper
                 .Routine
                 .Query()
