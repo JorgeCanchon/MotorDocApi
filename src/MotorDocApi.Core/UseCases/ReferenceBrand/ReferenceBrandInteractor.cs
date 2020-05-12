@@ -24,6 +24,11 @@ namespace MotorDocApi.Core.UseCases.ReferenceBrand
            _repositoryWrapper.ReferenceBrand.FindAll()
         );
 
+        public IQueryable<Models.ReferenceBrand> GetReferenceBrandByBrand(int idBrand) =>
+        (
+            _repositoryWrapper.ReferenceBrand.FindByCondition(x => x.IdBrand == idBrand)
+        );
+
         public long InsertReferenceBrand(Models.ReferenceBrand referenceBrand)
         {
             throw new NotImplementedException();

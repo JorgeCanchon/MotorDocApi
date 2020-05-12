@@ -10,6 +10,7 @@ namespace MotorDocApi.Core.UseCases.ReferenceBrand
     public interface IReferenceBrandInteractor
     {
         IQueryable<Models.ReferenceBrand> GetReferenceBrand();
+        IQueryable<Models.ReferenceBrand> GetReferenceBrandByBrand(int idBrand);
         long InsertReferenceBrand(Models.ReferenceBrand referenceBrand);
         EntityState UpdateReferenceBrand(Models.ReferenceBrand referenceBrand);
         EntityState DeleteReferenceBrand(long idReferenceBrand);

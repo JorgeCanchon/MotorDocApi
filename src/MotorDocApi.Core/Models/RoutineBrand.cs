@@ -16,8 +16,8 @@ namespace MotorDocApi.Core.Models
         public long IdReferenceBrand { get; set; }
         [Column("cost")]
         public double Cost { get; set; }
-        [Column("estimateddate")]
-        public DateTime EstimatedDate { get; set; }
+        [Column("estimatedtime")]
+        public int EstimatedTime { get; set; }
         [JsonIgnore]
         public Routine Routine { get; set; }
         [JsonIgnore]

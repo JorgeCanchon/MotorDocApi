@@ -53,13 +53,25 @@ namespace MotorDocApi.Core.UseCases.Routine
             EntityState result = new EntityState();
             try
             {
-                var entity = _repositoryWrapper.Routine.FindByCondition(x => x.IdRoutine == routine.IdRoutine).FirstOrDefault();
+                //var entity = _repositoryWrapper.Routine.FindByCondition(x => x.IdRoutine == routine.IdRoutine).FirstOrDefault();
+                var entity = _repositoryWrapper
+                .Routine
+                .Query()
+                .Set<Models.Routine>()
+                .Include(x => x.RoutineBrand)
+                .Where(x => x.IdRoutine == routine.IdRoutine)
+                .FirstOrDefault();
+
                 entity.Name = routine.Name;
-                //entity.Cost = routine.Cost;
-                result = _repositoryWrapper.Routine.Update(entity, "Idroutine");
+
+                var routinereference = entity.RoutineBrand.FirstOrDefault();
+                routinereference.IdReferenceBrand = routine.RoutineBrand.First().IdReferenceBrand; 
+                routinereference.Cost = routine.RoutineBrand.First().Cost;
+                routinereference.EstimatedTime = routine.RoutineBrand.First().EstimatedTime;
+                result = _repositoryWrapper.Routine.Update(entity, "IdRoutine");
                 _repositoryWrapper.Save();
             }
-            catch(Exception)
+            catch(Exception e)
             {
                 return EntityState.Unchanged;
             }
@@ -72,10 +84,10 @@ namespace MotorDocApi.Core.UseCases.Routine
             {
                 var entity = _repositoryWrapper.Routine.FindByCondition(x => x.IdRoutine == idRoutine).FirstOrDefault();
                 entity.Status = false;
-                result = _repositoryWrapper.Routine.Update(entity, "Idroutine");
+                result = _repositoryWrapper.Routine.Update(entity, "IdRoutine");
                 _repositoryWrapper.Save();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return EntityState.Unchanged;
             }

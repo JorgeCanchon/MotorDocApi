@@ -36,5 +36,22 @@ namespace MotorDocApi.Controllers
                 return Problem(e.Message);
             }
         }
+
+        [Authorize]
+        [HttpGet("{idBrand}")]
+        public IActionResult Get(int idBrand)
+        {
+            try
+            {
+                IEnumerable<ReferenceBrand> referenceBrand = _referenceBrandInteractor.GetReferenceBrandByBrand(idBrand);
+                if (referenceBrand.Any())
+                    return Ok(referenceBrand);
+                return NoContent();
+            }
+            catch (Exception e)
+            {
+                return Problem(e.Message);
+            }
+        }
     }
 }

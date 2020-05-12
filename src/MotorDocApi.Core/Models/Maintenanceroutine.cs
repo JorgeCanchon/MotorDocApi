@@ -13,7 +13,7 @@ namespace MotorDocApi.Core.Models
         [Column("costroutine")]
         public long Costroutine { get; set; }
         [Column("timeroutine")]
-        public DateTime Timeroutine { get; set; }
+        public int Timeroutine { get; set; }
         [Column("idmechanic")]
         public long IdMechanic { get; set; }
         [Column("idroutine")]
