@@ -8,7 +8,8 @@ namespace MotorDocApi.Core.Interfaces.Repositories
 {
     public interface IRoutineRepository : IRepositoryBase<Routine>
     {
-        IQueryable<Routine> GetRoutinesByWorkshop(long workshopId, long idReferenceBrand);
+        IQueryable<Routine> GetRoutinesByWorkshopReference(long workshopId, long idReferenceBrand);
+        IQueryable<Routine> GetRoutinesByWorkshop(long workshopId);
         Routine GetRoutineById(long idRoutine);
     }
 }
