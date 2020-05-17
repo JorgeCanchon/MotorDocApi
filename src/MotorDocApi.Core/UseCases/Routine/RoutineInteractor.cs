@@ -22,7 +22,7 @@ namespace MotorDocApi.Core.UseCases.Routine
             _repositoryWrapper.Routine.FindAll().Where(x => x.Status == true);
 
         public IQueryable<Models.Routine> GetRoutinesByWorkshopReference(long workshopId, long idReferenceBrand) =>
-            _repositoryWrapper.Routine.GetRoutinesByWorkshop(workshopId, idReferenceBrand);
+            _repositoryWrapper.Routine.GetRoutinesByWorkshopReference(workshopId, idReferenceBrand);
 
         public long InsertRoutine(Models.Routine routine)
         {
@@ -83,6 +83,6 @@ namespace MotorDocApi.Core.UseCases.Routine
         }
 
         public IQueryable<Models.Routine> GetRoutinesByWorkshop(long workshopId) =>
-         _repositoryWrapper.Routine.FindByCondition(x => x.WorkshopsId == workshopId);
+         _repositoryWrapper.Routine.GetRoutinesByWorkshop(workshopId);
     }
 }

@@ -20,7 +20,7 @@ namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL.Repositorie
             _repositoryContext = repositoryContext ?? throw new ArgumentNullException(nameof(repositoryContext));
         }
 
-        public IQueryable<Routine> GetRoutinesByWorkshop(long workshopId, long idReferenceBrand) =>
+        public IQueryable<Routine> GetRoutinesByWorkshopReference(long workshopId, long idReferenceBrand) =>
             _repositoryContext
                 .Routines
                 .Include(x => x.RoutineBrand)
@@ -36,5 +36,14 @@ namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL.Repositorie
                 .Include(x => x.RoutineBrand)
                 .Where(x => x.IdRoutine == idRoutine)
                 .FirstOrDefault();
+
+        public IQueryable<Routine> GetRoutinesByWorkshop(long workshopId) =>
+            _repositoryContext
+                .Routines
+                .Include(x => x.RoutineBrand)
+                .Where(x =>
+                    x.WorkshopsId == workshopId &&
+                    x.Status == true 
+                );
     }
 }
