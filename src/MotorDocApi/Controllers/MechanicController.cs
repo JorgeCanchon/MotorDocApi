@@ -15,19 +15,21 @@ namespace MotorDocApi.Controllers
     public class MechanicController : ControllerBase
     {
         private readonly IMechanicInteractor _mechanicInteractor;
+
         public MechanicController(IMechanicInteractor mechanicInteractor)
         {
             _mechanicInteractor = mechanicInteractor ?? throw new ArgumentNullException(nameof(mechanicInteractor));
         }
+
         [Authorize]
-        [HttpGet("treatingMechanic/{workshopId}/{vehicleId}")]
-        public IActionResult GetWorkshop(long workshopId, long vehicleId)
+        [HttpGet("{workshopId}/{vehicleId}")]
+        public IActionResult GetTreatingMechanic(long workshopId, long vehicleId)
         {
             try
             {
-                IEnumerable<Mechanics> routines = _mechanicInteractor.GetTreatingMechanic(workshopId, vehicleId);
-                if (routines.Any())
-                    return Ok(routines);
+                IEnumerable<Mechanics> mechanics = _mechanicInteractor.GetTreatingMechanic(workshopId, vehicleId);
+                if (mechanics.Any())
+                    return Ok(mechanics);
                 return NoContent();
             }
             catch (Exception e)

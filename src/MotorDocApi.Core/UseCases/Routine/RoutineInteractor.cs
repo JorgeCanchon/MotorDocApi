@@ -12,6 +12,7 @@ namespace MotorDocApi.Core.UseCases.Routine
     public class RoutineInteractor : IRoutineInteractor
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
+
         public RoutineInteractor(IRepositoryWrapper repositoryWrapper)
         {
             _repositoryWrapper = repositoryWrapper ?? throw new ArgumentNullException(nameof(repositoryWrapper));
@@ -20,17 +21,8 @@ namespace MotorDocApi.Core.UseCases.Routine
         public IQueryable<Models.Routine> GetRoutine() =>
             _repositoryWrapper.Routine.FindAll().Where(x => x.Status == true);
 
-        public IQueryable<Models.Routine> GetRoutinesByWorkshop(long workshopId, long idReferenceBrand) =>
-            _repositoryWrapper
-                .Routine
-                .Query()
-                .Set<Models.Routine>()
-                .Include(x => x.RoutineBrand)
-                .Where(x =>
-                    x.WorkshopsId == workshopId &&
-                    x.Status == true &&
-                    x.RoutineBrand.Any(c => c.IdReferenceBrand == idReferenceBrand)
-                );
+        public IQueryable<Models.Routine> GetRoutinesByWorkshopReference(long workshopId, long idReferenceBrand) =>
+            _repositoryWrapper.Routine.GetRoutinesByWorkshop(workshopId, idReferenceBrand);
 
         public long InsertRoutine(Models.Routine routine)
         {
@@ -55,11 +47,7 @@ namespace MotorDocApi.Core.UseCases.Routine
             {
                 var entity = _repositoryWrapper
                 .Routine
-                .Query()
-                .Set<Models.Routine>()
-                .Include(x => x.RoutineBrand)
-                .Where(x => x.IdRoutine == routine.IdRoutine)
-                .FirstOrDefault();
+                .GetRoutineById(routine.IdRoutine);
 
                 entity.Name = routine.Name;
 
@@ -76,6 +64,7 @@ namespace MotorDocApi.Core.UseCases.Routine
             }
             return result;
         }
+
         public EntityState DeleteRoutine(long idroutine)
         {
             EntityState result = new EntityState();
@@ -92,5 +81,8 @@ namespace MotorDocApi.Core.UseCases.Routine
             }
             return result;
         }
+
+        public IQueryable<Models.Routine> GetRoutinesByWorkshop(long workshopId) =>
+         _repositoryWrapper.Routine.FindByCondition(x => x.WorkshopsId == workshopId);
     }
 }

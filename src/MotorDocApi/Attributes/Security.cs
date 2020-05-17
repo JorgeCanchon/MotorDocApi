@@ -33,6 +33,7 @@ namespace MotorDocApi.Attributes
             return id;
 
         }
+
         public static bool ValidateToken(string token, string secret)
         {
             var tokenHandler = new JwtSecurityTokenHandler();

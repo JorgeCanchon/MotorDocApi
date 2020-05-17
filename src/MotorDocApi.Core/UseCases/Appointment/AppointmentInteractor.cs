@@ -11,6 +11,7 @@ namespace MotorDocApi.Core.UseCases.Appointment
     public class AppointmentInteractor : IAppointmentInteractor
     {
         private IRepositoryWrapper _repositoryWrapper;
+
         public AppointmentInteractor(IRepositoryWrapper repositoryWrapper)
         {
             _repositoryWrapper = repositoryWrapper ?? throw new ArgumentNullException(nameof(repositoryWrapper));

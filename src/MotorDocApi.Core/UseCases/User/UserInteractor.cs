@@ -9,6 +9,7 @@ namespace MotorDocApi.Core.UseCases.User
     public class UserInteractor : IUserInteractor
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
+
         public UserInteractor(IRepositoryWrapper repositoryWrapper)
         {
             _repositoryWrapper = repositoryWrapper ?? throw new ArgumentException(nameof(repositoryWrapper));

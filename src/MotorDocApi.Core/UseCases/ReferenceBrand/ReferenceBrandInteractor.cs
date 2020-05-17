@@ -10,10 +10,12 @@ namespace MotorDocApi.Core.UseCases.ReferenceBrand
     public class ReferenceBrandInteractor : IReferenceBrandInteractor
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
+
         public ReferenceBrandInteractor(IRepositoryWrapper repositoryWrapper)
         {
             _repositoryWrapper = repositoryWrapper ?? throw new ArgumentNullException(nameof(repositoryWrapper));
         }
+
         public EntityState DeleteReferenceBrand(long idReferenceBrand)
         {
             throw new NotImplementedException();

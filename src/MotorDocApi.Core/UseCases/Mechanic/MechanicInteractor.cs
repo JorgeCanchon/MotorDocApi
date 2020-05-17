@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MotorDocApi.Core.Interfaces.Repositories;
 using MotorDocApi.Core.Models;
 using Npgsql;
@@ -19,32 +20,9 @@ namespace MotorDocApi.Core.UseCases.Mechanic
             _repositoryWrapper = repositoryWrapper ?? throw new ArgumentNullException(nameof(repositoryWrapper));
         }
 
-        public IQueryable<Mechanics> GetTreatingMechanic(long workshopId, long vehicleId)
-        {
-            var mechanic = _repositoryWrapper
+        public IQueryable<Mechanics> GetTreatingMechanic(long workshopId, long vehicleId) =>
+            _repositoryWrapper
                 .Mechanics
-                .Query()
-                .Set<Models.Mechanics>()
-                .Include(x => x.User)
-                .Include(x => x.Maintenanceroutines)
-                .ThenInclude(m => m.Maintenances)
-                .ThenInclude(v => v.Vehicles)
-                .Include(m => m.Maintenanceroutines)
-                .ThenInclude(m => m.Maintenances)
-                .ThenInclude(a => a.Appointments)
-                .Where(z =>
-                    z.Maintenanceroutines.Any(c => c.Maintenances.Appointments.WorkshopsId == workshopId ) &&
-                    z.Maintenanceroutines.Any(c => c.Maintenances.Vehicles.Any(x => x.Id == vehicleId)) 
-                );
-            //_repositoryWrapper
-            //.Mechanics
-            //.ExecuteQuery($"select * from gettreatingmechanic({workshopId}, {vehicleId})");
-           return mechanic
-           .Select(x => new Mechanics
-           {
-               Id = x.Id,
-               User = new Users { Name = x.User.Name, LastName = x.User.LastName }
-           });
-        }
+                .GetTreatingMechanic(workshopId, vehicleId);
     }
 }

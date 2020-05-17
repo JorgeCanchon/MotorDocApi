@@ -17,6 +17,7 @@ namespace MotorDocApi.Controllers
     public class RoutineController : ControllerBase
     {
         private readonly IRoutineInteractor _routineInteractor;
+
         public RoutineController(IRoutineInteractor routineInteractor)
         {
             _routineInteractor = routineInteractor;
@@ -45,7 +46,23 @@ namespace MotorDocApi.Controllers
         {
             try
             {
-                IEnumerable<Routine> routines = _routineInteractor.GetRoutinesByWorkshop(workshopId, idReferenceBrand);
+                IEnumerable<Routine> routines = _routineInteractor.GetRoutinesByWorkshopReference(workshopId, idReferenceBrand);
+                if (routines.Any())
+                    return Ok(routines);
+                return NoContent();
+            }
+            catch (Exception e)
+            {
+                return Problem(e.Message);
+            }
+        }
+        [Authorize]
+        [HttpGet("{workshopId}")]
+        public IActionResult GetRoutinesWorkshop(long workshopId)
+        {
+            try
+            {
+                IEnumerable<Routine> routines = _routineInteractor.GetRoutinesByWorkshop(workshopId);
                 if (routines.Any())
                     return Ok(routines);
                 return NoContent();
@@ -83,6 +100,7 @@ namespace MotorDocApi.Controllers
                 return StatusCode(500);
             return Ok();
         }
+
         [Authorize]
         [HttpDelete("{idroutine}")]
         public IActionResult Delete(long idroutine)
