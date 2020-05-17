@@ -15,6 +15,7 @@ namespace MotorDocApi.Controllers
     public class ReferenceBrandController : ControllerBase
     {
         private readonly IReferenceBrandInteractor _referenceBrandInteractor;
+
         public ReferenceBrandController(IReferenceBrandInteractor referenceBrandInteractor)
         {
             _referenceBrandInteractor = referenceBrandInteractor;

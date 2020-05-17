@@ -21,6 +21,7 @@ namespace MotorDocApi.Controllers
         {
             _appointmentRepository = appointmentRepository;
         }
+
         //[Consumes(MediaTypeNames.Application.Json)]
         [Authorize]
         [HttpGet]

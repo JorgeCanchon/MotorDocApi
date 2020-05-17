@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -42,9 +43,13 @@ namespace MotorDocApi.Core.Models
         [Column("profile_pic")]
         public string ProfilePic { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<Companies> Companies { get; set; }
-        public virtual ICollection<Mechanics> Mechanics { get; set; }
-        public virtual ICollection<Vehicles> Vehicles { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Mechanics> Mechanics { get; set; } 
+        [JsonIgnore]
+        public virtual ICollection<Vehicles> Vehicles { get; set; } 
+        [JsonIgnore]
         public virtual ICollection<Workshops> Workshops { get; set; }
     }
 }

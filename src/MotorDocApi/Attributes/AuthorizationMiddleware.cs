@@ -9,6 +9,7 @@ namespace MotorDocApi.Attributes
     public class AuthorizationMiddleware
     {
         private readonly RequestDelegate _next;
+
         public AuthorizationMiddleware(RequestDelegate next)
         {
             _next = next;
@@ -37,7 +38,8 @@ namespace MotorDocApi.Attributes
 
             await _next.Invoke(context);
         }
+
         private void Unauthorized(HttpContext context) =>
-            context.Response.StatusCode = 401;//Unauthorized
+            context.Response.StatusCode = 401; // Unauthorized
     }
 }

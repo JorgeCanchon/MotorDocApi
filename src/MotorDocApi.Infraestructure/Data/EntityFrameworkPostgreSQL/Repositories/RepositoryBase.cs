@@ -12,10 +12,12 @@ namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL.Repositorie
     public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
         protected DbContext Context { get; set; }
+
         public RepositoryBase(DbContext context)
         {
             Context = context ?? throw new ArgumentNullException(nameof(context));
         }
+
         public T Create(T entity) =>
             Context.Set<T>().Add(entity).Entity;
 
@@ -36,8 +38,5 @@ namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL.Repositorie
 
         public IQueryable<T> ExecuteQuery(string sql) =>
             Context.Set<T>().FromSqlRaw<T>(sql);
-
-        public DbContext Query() => 
-            Context;
     }
 }

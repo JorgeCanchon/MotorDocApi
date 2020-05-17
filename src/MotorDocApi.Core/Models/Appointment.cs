@@ -14,10 +14,10 @@ namespace MotorDocApi.Core.Models
         [Column("idappointment")]
         public long Idappointment { get; set; }
 //        [DisplayFormat(DataFormatString = "{0:DD/MM/YYYY}")]
-        [Column("appointmentstart"), Required]
-        public DateTime Appointmentstart { get; set; }
-        [Column("appointmentend"), DataType(DataType.DateTime), Required]
-        public DateTime Apopointmentend { get; set; }
+        [Column("appointmentdate"), Required]
+        public DateTime AppointmentDate { get; set; }
+        //[Column("appointmentend"), DataType(DataType.DateTime), Required]
+        //public DateTime Apopointmentend { get; set; }
         [Column("status")]
         public short Status { get; set; }
         [Column("fhcreated")]
