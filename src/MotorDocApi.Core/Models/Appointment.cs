@@ -25,5 +25,6 @@ namespace MotorDocApi.Core.Models
         [Column("workshopsid")]
         public long WorkshopsId { get; set; }
         public virtual Maintenance Maintenance { get; set; }
+        public virtual Workshops Workshops { get; set; }
     }
 }

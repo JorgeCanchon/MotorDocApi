@@ -10,7 +10,7 @@ namespace MotorDocApi.Core.Models
     {
         public Workshops()
         {
-            Appointment = new HashSet<Appointment>();
+            Appointments = new HashSet<Appointment>();
         }
         [Key]
         [Column("id")]
@@ -38,6 +38,6 @@ namespace MotorDocApi.Core.Models
 
         public virtual Companies Company { get; set; }
         public virtual Users User { get; set; }
-        public virtual ICollection<Appointment> Appointment { get; }
+        public virtual ICollection<Appointment> Appointments { get; }
     }
 }
