@@ -1,16 +1,13 @@
 ﻿using MotorDocApi.Core.Interfaces.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using MotorDocApi.Core.Models;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 
 namespace MotorDocApi.Core.UseCases.Appointment
 {
     public class AppointmentInteractor : IAppointmentInteractor
     {
-        private IRepositoryWrapper _repositoryWrapper;
+        private readonly IRepositoryWrapper _repositoryWrapper;
 
         public AppointmentInteractor(IRepositoryWrapper repositoryWrapper)
         {
@@ -29,10 +26,11 @@ namespace MotorDocApi.Core.UseCases.Appointment
                 _repositoryWrapper.Save();
                 result = appointment.Idappointment;
             }
-            catch (Exception) 
-            { 
-
+            catch 
+            {
+                result = -1;
             }
+
             return result;
         }
     }

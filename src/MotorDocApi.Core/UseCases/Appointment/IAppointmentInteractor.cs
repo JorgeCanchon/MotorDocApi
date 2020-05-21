@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using System.Linq;
 using MotorDocApi.Core.Models;
 
 namespace MotorDocApi.Core.UseCases.Appointment
