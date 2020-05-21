@@ -41,12 +41,15 @@ namespace MotorDocApi.Infraestructure.EntityFrameworkPostgreSQL
                     entity.Property(b => b.Fhcreated)
                     .HasDefaultValueSql("now()");
                     entity.Property(b => b.Status)
-                    .HasDefaultValueSql("1");
+                    .HasDefaultValueSql("0");
 
                     entity.HasOne<Maintenance>(m => m.Maintenance)
                     .WithOne(a => a.Appointments)
                     .HasForeignKey<Maintenance>(a => a.IdAppointment);
 
+                    entity.HasOne<Workshops>(a => a.Workshops)
+                    .WithMany(w => w.Appointments)
+                    .HasForeignKey(a => a.WorkshopsId);
                 });
 
                 modelBuilder.Entity<Routinemechanic>(entity =>
@@ -96,10 +99,18 @@ namespace MotorDocApi.Infraestructure.EntityFrameworkPostgreSQL
                 modelBuilder.Entity<Routine>(entity => 
                 {
                     entity.Property(b => b.Fhcreated)
-                    .HasDefaultValueSql("now");
+                    .HasDefaultValueSql("now()");
                     entity.Property(b => b.Status)
                     .HasDefaultValueSql("1");
                     entity.Property(b => b.IdRoutine).UseIdentityColumn();
+                });
+
+                modelBuilder.Entity<Maintenance>(entity =>
+                {
+                    entity.Property(b => b.Fhcreated)
+                    .HasDefaultValueSql("now()");
+                    entity.Property(b => b.Status)
+                    .HasDefaultValueSql("1");
                 });
                 modelBuilder.HasAnnotation("Sqlite:Autoincrement", true)
                    .HasAnnotation("MySql:ValueGeneratedOnAdd", true)
