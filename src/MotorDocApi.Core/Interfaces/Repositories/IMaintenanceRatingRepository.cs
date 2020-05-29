@@ -2,7 +2,7 @@
 
 namespace MotorDocApi.Core.Interfaces.Repositories
 {
-    public interface IAppointmentRepository : IRepositoryBase<Appointment>
+    public interface IMaintenanceRatingRepository: IRepositoryBase<Maintenancerating>
     {
     }
 }

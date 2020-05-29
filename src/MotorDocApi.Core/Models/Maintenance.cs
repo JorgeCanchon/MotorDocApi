@@ -10,7 +10,6 @@ namespace MotorDocApi.Core.Models
     {
         public Maintenance()
         {
-            Maintenancerating = new HashSet<Maintenancerating>();
             Maintenanceroutines = new HashSet<Maintenanceroutine>();
             Vehicles = new HashSet<Vehicles>();
         }
@@ -28,7 +27,7 @@ namespace MotorDocApi.Core.Models
 
         public virtual Appointment Appointments { get; set; }
         public virtual ICollection<Vehicles> Vehicles { get; set; }
-        public virtual ICollection<Maintenancerating> Maintenancerating { get; set; }
+        public virtual Maintenancerating Maintenancerating { get; set; }
         public ICollection<Maintenanceroutine> Maintenanceroutines { get; set; }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MotorDocApi.Core.Models;
 using MotorDocApi.Core.UseCases.Appointment;
@@ -15,11 +13,11 @@ namespace MotorDocApi.Controllers
     public class AppointmentController : ControllerBase
     {
 
-        private readonly IAppointmentInteractor _appointmentRepository;
+        private readonly IAppointmentInteractor _appointmentInteractor;
 
         public AppointmentController(IAppointmentInteractor appointmentRepository)
         {
-            _appointmentRepository = appointmentRepository;
+            _appointmentInteractor = appointmentRepository;
         }
 
         //[Consumes(MediaTypeNames.Application.Json)]
@@ -29,7 +27,7 @@ namespace MotorDocApi.Controllers
         {
             try
             {
-                IEnumerable<Appointment> appointments = _appointmentRepository.GetAppointment();
+                IEnumerable<Appointment> appointments = _appointmentInteractor.GetAppointment();
                 if (appointments.Any())
                     return Ok(appointments);
                 return NoContent();
@@ -48,7 +46,20 @@ namespace MotorDocApi.Controllers
             { // re-render the view when validation failed.
                 return BadRequest(ModelState);
             }
-            var result = _appointmentRepository.InsertAppointment(appointment);
+            long result = _appointmentInteractor.InsertAppointment(appointment);
+            if (result == -1 || result == 0)
+                return StatusCode(500);
+            return Ok(result);
+        }
+        [Authorize]
+        [HttpPost("QualifyAppointment")]
+        public IActionResult QualifyAppointment(Maintenancerating maintenancerating)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(maintenancerating);
+            }
+            long result = _appointmentInteractor.QualifyAppointment(maintenancerating);
             if (result == -1 || result == 0)
                 return StatusCode(500);
             return Ok(result);

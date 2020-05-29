@@ -2,6 +2,7 @@
 using MotorDocApi.Core.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace MotorDocApi.Infraestructure.EntityFrameworkPostgreSQL
@@ -86,6 +87,7 @@ namespace MotorDocApi.Infraestructure.EntityFrameworkPostgreSQL
                     .HasOne<Maintenance>(v => v.Maintenances)
                     .WithMany(m => m.Vehicles)
                     .HasForeignKey(v => v.Id);
+
                 //modelBuilder.Entity<RoutineBrand>(entity =>
                 //{
                 //    entity.HasNoKey();
@@ -111,7 +113,19 @@ namespace MotorDocApi.Infraestructure.EntityFrameworkPostgreSQL
                     .HasDefaultValueSql("now()");
                     entity.Property(b => b.Status)
                     .HasDefaultValueSql("1");
+
+                    entity.HasOne<Maintenancerating>(mr => mr.Maintenancerating)
+                    .WithOne(m => m.Maintenance)
+                    .HasForeignKey<Maintenancerating>(m => m.IdMaintenance);
+
                 });
+
+                modelBuilder.Entity<Maintenancerating>(entity => 
+                {
+                    entity.Property(b => b.Fhcreated)
+                    .HasDefaultValueSql("now()");
+                });
+
                 modelBuilder.HasAnnotation("Sqlite:Autoincrement", true)
                    .HasAnnotation("MySql:ValueGeneratedOnAdd", true)
                    .HasAnnotation("Npgsql:ValueGenerationStrategy",

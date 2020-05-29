@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MotorDocApi.Core.Models;
 using MotorDocApi.Core.UseCases.Routine;
-using Newtonsoft.Json;
 
 namespace MotorDocApi.Controllers
 {
@@ -45,7 +42,7 @@ namespace MotorDocApi.Controllers
         public IActionResult GetRoutinesWorkshopReference(long workshopId, long idReferenceBrand)
         {
             try
-            {
+                 {
                 IEnumerable<Routine> routines = _routineInteractor.GetRoutinesByWorkshopReference(workshopId, idReferenceBrand);
                 if (routines.Any())
                     return Ok(routines);

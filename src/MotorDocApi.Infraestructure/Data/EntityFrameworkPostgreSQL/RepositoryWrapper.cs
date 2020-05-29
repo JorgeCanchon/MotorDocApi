@@ -1,6 +1,5 @@
 ﻿using System;
 using MotorDocApi.Core.Interfaces.Repositories;
-using MotorDocApi.Core.UseCases.Mechanic;
 using MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL.Repositories;
 using MotorDocApi.Infraestructure.EntityFrameworkPostgreSQL;
 
@@ -21,7 +20,11 @@ namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL
 
         private IMechanicRepository mechanic;
 
-        private RepositoryContextPostgresql _repositoryContextPostgresql;
+        private IMaintenanceRatingRepository maintenanceRating;
+
+        private IMaintenanceRoutineRepository maintenanceRoutine;
+
+        private readonly RepositoryContextPostgresql _repositoryContextPostgresql;
 
         public RepositoryWrapper(RepositoryContextPostgresql repositoryContextPostgresql)
         {
@@ -84,6 +87,26 @@ namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL
                 if (mechanic == null)
                     mechanic = new MechanicRepository(_repositoryContextPostgresql);
                 return mechanic;
+            }
+        }
+
+        public IMaintenanceRatingRepository MaintenanceRating
+        {
+            get
+            {
+                if (maintenanceRating == null)
+                    maintenanceRating = new MaintenaceRatingRepository(_repositoryContextPostgresql);
+                return maintenanceRating;
+            }
+        }
+
+        public IMaintenanceRoutineRepository MaintenanceRoutine
+        {
+            get
+            {
+                if (maintenanceRoutine == null)
+                    maintenanceRoutine = new MaintenanceRoutineRepository(_repositoryContextPostgresql);
+                return maintenanceRoutine;
             }
         }
 

@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using MotorDocApi.Core.Models;
 
 namespace MotorDocApi.Core.UseCases.Appointment
 {
@@ -7,5 +6,6 @@ namespace MotorDocApi.Core.UseCases.Appointment
     {
         IQueryable<Models.Appointment> GetAppointment();
         long InsertAppointment(Models.Appointment appointment);
+        long QualifyAppointment(Models.Maintenancerating maintenancerating);
     }
 }

@@ -33,5 +33,22 @@ namespace MotorDocApi.Core.UseCases.Appointment
 
             return result;
         }
+
+        public long QualifyAppointment(Maintenancerating maintenancerating)
+        {
+            long result = -1;
+            try
+            {
+                _repositoryWrapper.MaintenanceRating.Create(maintenancerating);
+                _repositoryWrapper.Save();
+                result = maintenancerating.IdMaintenanceRating;
+            }
+            catch
+            {
+                result = -1;
+            }
+
+            return result;
+        }
     }
 }

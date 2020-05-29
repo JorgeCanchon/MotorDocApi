@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MotorDocApi.Core.Models
 {
@@ -18,7 +15,10 @@ namespace MotorDocApi.Core.Models
         public long IdMechanic { get; set; }
         [Column("idroutine")]
         public long IdRoutine { get; set; }
-
+        [Column("kilometraje")]
+        public long? Kilometraje { get; set; }
+        [Column("observaciones")]
+        public string Observaciones { get; set; }
         public virtual Maintenance Maintenances { get; set; }
         public virtual Mechanics Mechanics { get; set; }
         //public virtual Routine Routines { get; set; }
