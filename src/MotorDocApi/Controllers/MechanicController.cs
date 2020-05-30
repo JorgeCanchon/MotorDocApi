@@ -50,5 +50,19 @@ namespace MotorDocApi.Controllers
                 return StatusCode(500);
             return Ok();
         }
+
+        [Authorize]
+        [HttpGet("GetIdMechanic/{userId}")]
+        public IActionResult GetIdMechanic(long userId)
+        {
+            if (userId <= 0)
+            {
+                return BadRequest(userId);
+            }
+            long result = _mechanicInteractor.GetIdMechanic(userId);
+            if (result <= 0)
+                return StatusCode(500);
+            return Ok(result);
+        }
     }
 }

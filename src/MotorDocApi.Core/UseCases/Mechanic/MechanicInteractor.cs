@@ -25,6 +25,13 @@ namespace MotorDocApi.Core.UseCases.Mechanic
             throw new NotImplementedException();
         }
 
+        public long GetIdMechanic(long userId) => 
+            _repositoryWrapper
+                .Mechanics
+                .FindByCondition(x => x.UserId == userId)
+                .FirstOrDefault()
+                .Id;
+
         public IQueryable<Mechanics> GetTreatingMechanic(long workshopId, long vehicleId) =>
             _repositoryWrapper
                 .Mechanics

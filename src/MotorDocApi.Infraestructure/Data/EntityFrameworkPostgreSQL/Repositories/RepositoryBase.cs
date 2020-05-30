@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using MotorDocApi.Core.Interfaces.Repositories;
-using System.Security.Cryptography.X509Certificates;
 
 namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL.Repositories
 {
@@ -13,7 +10,7 @@ namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL.Repositorie
     {
         protected DbContext Context { get; set; }
 
-        public RepositoryBase(DbContext context)
+        protected RepositoryBase(DbContext context)
         {
             Context = context ?? throw new ArgumentNullException(nameof(context));
         }
@@ -38,5 +35,11 @@ namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL.Repositorie
 
         public IQueryable<T> ExecuteQuery(string sql) =>
             Context.Set<T>().FromSqlRaw<T>(sql);
+
+        public void Dispose()
+        {
+            Context.Dispose();
+            Context = null;
+        }
     }
 }
