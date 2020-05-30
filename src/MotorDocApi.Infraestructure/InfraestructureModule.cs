@@ -1,9 +1,6 @@
 ﻿using Autofac;
 using MotorDocApi.Core.Interfaces.Repositories;
 using MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MotorDocApi.Infraestructure
 {

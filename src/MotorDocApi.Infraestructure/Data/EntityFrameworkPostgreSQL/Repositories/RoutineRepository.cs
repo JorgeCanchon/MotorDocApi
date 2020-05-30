@@ -43,7 +43,7 @@ namespace MotorDocApi.Infraestructure.Data.EntityFrameworkPostgreSQL.Repositorie
                 .Include(x => x.RoutineBrand)
                 .Where(x =>
                     x.WorkshopsId == workshopId &&
-                    x.Status == true 
+                    x.Status
                 );
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace MotorDocApi.Core.Interfaces.Repositories
 {
     public interface IRepositoryWrapper
@@ -12,6 +9,8 @@ namespace MotorDocApi.Core.Interfaces.Repositories
         IReferenceBrandRepository ReferenceBrand { get; }
         IBrandRepository Brands { get; }
         IMechanicRepository Mechanics {get;}
+        IMaintenanceRatingRepository MaintenanceRating { get; }
+        IMaintenanceRoutineRepository MaintenanceRoutine { get; }
         void Commit();
         void RollBack();
         void Save();

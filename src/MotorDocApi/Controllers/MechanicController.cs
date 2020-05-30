@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MotorDocApi.Core.Models;
 using MotorDocApi.Core.UseCases.Mechanic;
+using Microsoft.EntityFrameworkCore;
 
 namespace MotorDocApi.Controllers
 {
@@ -36,6 +35,34 @@ namespace MotorDocApi.Controllers
             {
                 return Problem(e.Message);
             }
+        }
+
+        [Authorize]
+        [HttpPut("{idAppointment}")]
+        public IActionResult ManageAppointment(long idAppointment, Maintenanceroutine maintenanceroutine)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var result = _mechanicInteractor.ManageAppointment(maintenanceroutine, idAppointment);
+            if (result != EntityState.Modified)
+                return StatusCode(500);
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpGet("GetIdMechanic/{userId}")]
+        public IActionResult GetIdMechanic(long userId)
+        {
+            if (userId <= 0)
+            {
+                return BadRequest(userId);
+            }
+            long result = _mechanicInteractor.GetIdMechanic(userId);
+            if (result <= 0)
+                return StatusCode(500);
+            return Ok(result);
         }
     }
 }

@@ -1,11 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MotorDocApi.Core.Interfaces.Repositories;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 
 namespace MotorDocApi.Core.UseCases.Routine
 {
@@ -19,14 +15,14 @@ namespace MotorDocApi.Core.UseCases.Routine
         }
 
         public IQueryable<Models.Routine> GetRoutine() =>
-            _repositoryWrapper.Routine.FindAll().Where(x => x.Status == true);
+            _repositoryWrapper.Routine.FindAll().Where(x => x.Status);
 
         public IQueryable<Models.Routine> GetRoutinesByWorkshopReference(long workshopId, long idReferenceBrand) =>
             _repositoryWrapper.Routine.GetRoutinesByWorkshopReference(workshopId, idReferenceBrand);
 
         public long InsertRoutine(Models.Routine routine)
         {
-            long result = -1;
+            long result;
             try
             {
                 _repositoryWrapper.Routine.Create(routine);
@@ -35,14 +31,14 @@ namespace MotorDocApi.Core.UseCases.Routine
             }
             catch(Exception)
             {
-
+                result = -1;
             }
             return result;
         }
 
         public EntityState UpdateRoutine(Models.Routine routine)
         {
-            EntityState result = new EntityState();
+            EntityState result;
             try
             {
                 var entity = _repositoryWrapper
@@ -65,12 +61,12 @@ namespace MotorDocApi.Core.UseCases.Routine
             return result;
         }
 
-        public EntityState DeleteRoutine(long idroutine)
+        public EntityState DeleteRoutine(long idRoutine)
         {
-            EntityState result = new EntityState();
+            EntityState result;
             try
             {
-                var entity = _repositoryWrapper.Routine.FindByCondition(x => x.IdRoutine == idroutine).FirstOrDefault();
+                var entity = _repositoryWrapper.Routine.FindByCondition(x => x.IdRoutine == idRoutine).FirstOrDefault();
                 entity.Status = false;
                 result = _repositoryWrapper.Routine.Update(entity, "IdRoutine");
                 _repositoryWrapper.Save();

@@ -1,13 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MotorDocApi.Core.Interfaces.Repositories;
 using MotorDocApi.Core.Models;
-using Npgsql;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 
 namespace MotorDocApi.Core.UseCases.Mechanic
 {
@@ -20,9 +15,52 @@ namespace MotorDocApi.Core.UseCases.Mechanic
             _repositoryWrapper = repositoryWrapper ?? throw new ArgumentNullException(nameof(repositoryWrapper));
         }
 
+        public EntityState AssociateRoutine(Routinemechanic routinemechanic)
+        {
+            throw new NotImplementedException();
+        }
+
+        public EntityState DisassociateRoutine(Routinemechanic routinemechanic)
+        {
+            throw new NotImplementedException();
+        }
+
+        public long GetIdMechanic(long userId) => 
+            _repositoryWrapper
+                .Mechanics
+                .FindByCondition(x => x.UserId == userId)
+                .FirstOrDefault()
+                .Id;
+
         public IQueryable<Mechanics> GetTreatingMechanic(long workshopId, long vehicleId) =>
             _repositoryWrapper
                 .Mechanics
                 .GetTreatingMechanic(workshopId, vehicleId);
+
+        public EntityState ManageAppointment(Maintenanceroutine maintenanceroutine, long idAppointment)
+        {
+            EntityState result;
+            try
+            {
+                var maintenance = _repositoryWrapper.MaintenanceRoutine.FindByCondition(x => x.IdMaintenance == maintenanceroutine.IdMaintenance).FirstOrDefault();
+                maintenance.Kilometraje = maintenanceroutine.Kilometraje;
+                maintenance.Observaciones = maintenanceroutine.Observaciones;
+
+                result = _repositoryWrapper.MaintenanceRoutine.Update(maintenance, "IdMaintenance");
+                _repositoryWrapper.Save();
+                if (result == EntityState.Modified)
+                {
+                    var entity = _repositoryWrapper.Appointment.FindByCondition(x => x.Idappointment == idAppointment).FirstOrDefault();
+                    entity.Status = 1;
+                    result = _repositoryWrapper.Appointment.Update(entity, "Idappointment");
+                    _repositoryWrapper.Save();
+                }
+            }
+            catch (Exception e)
+            {
+                return EntityState.Unchanged;
+            }
+            return result;
+        }
     }
 }

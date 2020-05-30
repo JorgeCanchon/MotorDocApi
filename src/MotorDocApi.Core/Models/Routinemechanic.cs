@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MotorDocApi.Core.Models
 {
+    [Table("routinemechanic")]
     public partial class Routinemechanic
     {
-        public long Codroutine { get; set; }
-        public long Codmechanic { get; set; }
+        [Column("idroutine")]
+        public long IdRoutine { get; set; }
+        [Column("idmechanic")]
+        public long IdMechanic { get; set; }
         //public DateTime Estimatedtime { get; set; }
 
         public virtual Mechanics CodmechanicNavigation { get; set; }
